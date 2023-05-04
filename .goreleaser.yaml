@@ -1,3 +1,31 @@
+builds:
+  - id: terraform-provider-swifdog
+    env:
+      - CGO_ENABLED=0
+    mod_timestamp: "{{ .CommitTimestamp }}"
+    flags:
+      - -trimpath
+    ldflags:
+      - "-s -w -X main.version={{.Version}} -X main.commit={{.Commit}}"
+    goos:
+      - freebsd
+      - windows
+      - linux
+      - darwin
+    goarch:
+      - amd64
+      - "386"
+      - arm
+      - arm64
+    ignore:
+      - goos: darwin
+        goarch: "386"
+      - goos: darwin
+        goarch: arm
+    binary: "terraform-provider-swifdog_v{{ .Version }}"
+archives:
+  - format: zip
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
 checksum:
   name_template: "{{ .ProjectName }}_{{ .Version }}_SHA256SUMS"
   algorithm: sha256
@@ -6,8 +34,11 @@ signs:
     args:
       - "--batch"
       - "--local-user"
-      - "{{ steps.import_gpg.outputs.fingerprint }}"
+      - "{{ .Env.GPG_FINGERPRINT }}"
       - "--output"
       - "${signature}"
       - "--detach-sign"
       - "${artifact}"
+release:
+changelog:
+  skip: true
