@@ -6,7 +6,7 @@ signs:
     args:
       - "--batch"
       - "--local-user"
-      - "{{ .Env.GPG_FINGERPRINT }}"
+      - "{{ steps.import_gpg.outputs.fingerprint }}"
       - "--output"
       - "${signature}"
       - "--detach-sign"
