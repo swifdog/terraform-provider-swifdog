@@ -20,6 +20,10 @@ func ResourceIngressRule() *schema.Resource {
 				Type:     schema.TypeString,
 				Required: true,
 			},
+			"automanagessl": {
+				Type:     schema.TypeString,
+				Required: true,
+			},
 			"path": {
 				Type:     schema.TypeList,
 				Required: true,
@@ -48,6 +52,7 @@ func resourceIngressRuleCreate(data *schema.ResourceData, i interface{}) error {
 	client := i.(*swifdog.Client)
 
 	hostname := data.Get("hostname").(string)
+	automanagessl := data.Get("automanagessl").(bool)
 	pathsRaw := data.Get("path").([]interface{})
 
 	paths := make([]swifdog.IngressRulePath, 0)
@@ -66,8 +71,9 @@ func resourceIngressRuleCreate(data *schema.ResourceData, i interface{}) error {
 	}
 
 	project, err := client.CreateIngressRule(data.Get("projectid").(string), &swifdog.IngressRule{
-		Hostname:  hostname,
-		PathRules: paths,
+		Hostname:      hostname,
+		AutoManageSSL: automanagessl,
+		PathRules:     paths,
 	})
 	if err != nil {
 		return err
@@ -95,6 +101,7 @@ func resourceIngressRuleUpdate(data *schema.ResourceData, i interface{}) error {
 	client := i.(*swifdog.Client)
 
 	hostname := data.Get("hostname").(string)
+	automanagessl := data.Get("automanagessl").(bool)
 	pathsRaw := data.Get("path").([]interface{})
 
 	paths := make([]swifdog.IngressRulePath, 0)
@@ -113,8 +120,9 @@ func resourceIngressRuleUpdate(data *schema.ResourceData, i interface{}) error {
 	}
 
 	project, err := client.PatchIngressRule(data.Get("projectid").(string), data.Id(), &swifdog.IngressRule{
-		Hostname:  hostname,
-		PathRules: paths,
+		Hostname:      hostname,
+		AutoManageSSL: automanagessl,
+		PathRules:     paths,
 	})
 	if err != nil {
 		return err
