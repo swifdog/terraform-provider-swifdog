@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/hashicorp/terraform-plugin-sdk v1.17.2
-	github.com/swifdog/go-swifdog v0.0.3-1
+	github.com/swifdog/go-swifdog v0.0.4
 )
 
 require (

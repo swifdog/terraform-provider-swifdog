@@ -2,8 +2,8 @@ package tfresource
 
 import (
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"strconv"
 	"github.com/swifdog/go-swifdog/swifdog"
+	"strconv"
 )
 
 func ResourcePacket() *schema.Resource {

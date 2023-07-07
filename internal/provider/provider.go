@@ -3,10 +3,10 @@ package provider
 import (
 	"errors"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
+	"github.com/swifdog/go-swifdog/swifdog"
 	"github.com/swifdog/terraform-provider-swifdog/internal/tfdata"
 	_ "github.com/swifdog/terraform-provider-swifdog/internal/tfdata"
 	"github.com/swifdog/terraform-provider-swifdog/internal/tfresource"
-	"github.com/swifdog/go-swifdog/swifdog"
 )
 
 func New() *schema.Provider {
