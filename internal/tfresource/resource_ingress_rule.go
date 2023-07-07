@@ -21,8 +21,9 @@ func ResourceIngressRule() *schema.Resource {
 				Required: true,
 			},
 			"automanagessl": {
-				Type:     schema.TypeString,
-				Required: true,
+				Type:     schema.TypeBool,
+				Optional: true,
+				Default:  true,
 			},
 			"path": {
 				Type:     schema.TypeList,
