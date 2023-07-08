@@ -58,6 +58,7 @@ When referencing volumes, it doesn't matter whether you use the volumename or th
 - `projectid` - (Required, string) The ID of the project where this resource should be in.
 - `name` - (Required, string) The name of a container which must be unique within a project.
 - `image` - (Required, string) The container image to be run like "nginx:latest".
+- `registryCredentialId` - (Optional, string) The linked image pull secret to pull the given image.
 - `env` - (Optional, array) A list of key & values for setting environment variables within the container.
 - `internalport` - (Optional, array) A list of ports and their protocols which should be exposed within a project.
 - `volume ` - (Optional, array) A list of volumes to be mounted into the container.
