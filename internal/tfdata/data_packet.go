@@ -35,6 +35,7 @@ func dataPacketRead(data *schema.ResourceData, i interface{}) error {
 			data.SetId(p.ID)
 			_ = data.Set("name", p.Name)
 			_ = data.Set("image", p.Image)
+			_ = data.Set("registryCredentialId", p.RegistryCredentialId)
 			_ = data.Set("environmentVariables", p.EnvironmentVariables)
 			_ = data.Set("mountedVolumes", p.VolumeMounts)
 			return nil

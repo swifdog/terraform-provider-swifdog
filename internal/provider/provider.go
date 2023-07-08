@@ -38,9 +38,10 @@ func New() *schema.Provider {
 			"swifdog_ingress_rule":      tfresource.ResourceIngressRule(),
 		},
 		DataSourcesMap: map[string]*schema.Resource{
-			"swifdog_project":           tfdata.DataProject(),
-			"swifdog_persistent_volume": tfdata.DataPersistentVolume(),
-			"swifdog_packet":            tfdata.DataPacket(),
+			"swifdog_project":             tfdata.DataProject(),
+			"swifdog_persistent_volume":   tfdata.DataPersistentVolume(),
+			"swifdog_packet":              tfdata.DataPacket(),
+			"swifdog_registry_credential": tfdata.DataRegistryCredential(),
 		},
 		ConfigureFunc: configure,
 	}

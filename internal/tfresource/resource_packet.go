@@ -25,6 +25,11 @@ func ResourcePacket() *schema.Resource {
 				Type:     schema.TypeString,
 				Required: true,
 			},
+			"registryCredentialId": {
+				Type:     schema.TypeString,
+				Optional: true,
+				Default:  nil,
+			},
 			"env": {
 				Type:     schema.TypeList,
 				Optional: true,
@@ -82,11 +87,23 @@ func ResourcePacket() *schema.Resource {
 	}
 }
 
+func parseRegistryCredentialId(data *schema.ResourceData) *string {
+	value, ok := data.GetOk("registryCredentialId")
+
+	if !ok {
+		return nil
+	}
+
+	return value.(*string)
+}
+
 func resourcePacketCreate(data *schema.ResourceData, i interface{}) error {
 	client := i.(*swifdog.Client)
 
 	name := data.Get("name").(string)
 	image := data.Get("image").(string)
+	registryCredentialId := parseRegistryCredentialId(data)
+
 	// envs
 	envsRaw := data.Get("env").([]interface{})
 	envs := make([]swifdog.EnvironmentVariable, 0)
@@ -130,13 +147,19 @@ func resourcePacketCreate(data *schema.ResourceData, i interface{}) error {
 		internalPorts = append(internalPorts, strconv.Itoa(containerPort)+"/"+protocol)
 	}
 
-	project, err := client.CreatePacket(data.Get("projectid").(string), &swifdog.CreateOrPatchPacketRequest{
+	createOrPatchRequest := &swifdog.CreateOrPatchPacketRequest{
 		Name:                 name,
 		Image:                image,
 		EnvironmentVariables: envs,
 		VolumeMounts:         volumes,
 		InternalPorts:        internalPorts,
-	})
+	}
+
+	if registryCredentialId != nil {
+		createOrPatchRequest.RegistryCredentialId = *registryCredentialId
+	}
+
+	project, err := client.CreatePacket(data.Get("projectid").(string), createOrPatchRequest)
 	if err != nil {
 		return err
 	}
@@ -155,6 +178,7 @@ func resourcePacketRead(data *schema.ResourceData, i interface{}) error {
 
 	_ = data.Set("name", packet.Name)
 	_ = data.Set("image", packet.Image)
+	_ = data.Set("registryCredentialId", packet.RegistryCredentialId)
 	_ = data.Set("env", packet.EnvironmentVariables)
 	_ = data.Set("volume", packet.VolumeMounts)
 	_ = data.Set("internalport", packet.InternalPorts)
@@ -167,6 +191,8 @@ func resourcePacketUpdate(data *schema.ResourceData, i interface{}) error {
 
 	name := data.Get("name").(string)
 	image := data.Get("image").(string)
+	registryCredentialId := parseRegistryCredentialId(data)
+
 	// envs
 	envsRaw := data.Get("env").([]interface{})
 	envs := make([]swifdog.EnvironmentVariable, 0)
@@ -209,13 +235,19 @@ func resourcePacketUpdate(data *schema.ResourceData, i interface{}) error {
 		internalPorts = append(internalPorts, strconv.Itoa(containerPort)+"/"+protocol)
 	}
 
-	project, err := client.PatchPacket(data.Get("projectid").(string), data.Id(), &swifdog.CreateOrPatchPacketRequest{
+	createOrPatchRequest := &swifdog.CreateOrPatchPacketRequest{
 		Name:                 name,
 		Image:                image,
 		EnvironmentVariables: envs,
 		VolumeMounts:         volumes,
 		InternalPorts:        internalPorts,
-	})
+	}
+
+	if registryCredentialId != nil {
+		createOrPatchRequest.RegistryCredentialId = *registryCredentialId
+	}
+
+	project, err := client.PatchPacket(data.Get("projectid").(string), data.Id(), createOrPatchRequest)
 	if err != nil {
 		return err
 	}
