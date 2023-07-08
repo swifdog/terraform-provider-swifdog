@@ -8,12 +8,12 @@ resource "swifdog_ingress_rule" "example-ingress" {
   hostname  = "example.com"
 
   path {
-    path          = "/(.*)"
+    path          = "/"
     packetid      = swifdog_packet.hello-world.id
     containerport = 80
   }
   path {
-    path          = "/blog(/|$)(.*)"
+    path          = "/blog"
     packetid      = swifdog_packet.wordpress.id
     containerport = 80
   }
