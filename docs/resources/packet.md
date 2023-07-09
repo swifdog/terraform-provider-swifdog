@@ -15,40 +15,28 @@ resource "swifdog_packet" "hello-world" {
 You can add environment variables as follows. Note that you need to include the entire code block in the brackets of the resource above.
 
 ```terraform
-...
-
 env {
     key = "PMA_ABSOLUTE_URI"
     value = "demo.com/phpmyadmin/"
 }
-
-...
 ```
 
 By default, you cannot access a packet by its name or ID. You need to release any ports before you can access them by the packet name. For example, with a database container, you can release a port as follows:
 
 ```terraform
-...
-
 internalport {
     containerport = 3306
     protocol = "tcp"
 }
-
-...
 ```
 
 You can integrate the persistent volumes mentioned above into packets as follows:
 
 ```terraform
-...
-
 volume {
     volumeid = swifdog_persistent_volume.example-pv.id
     mountpath = "/var/www/demo"
 }
-
-...
 ```
 
 When referencing volumes, it doesn't matter whether you use the volumename or the volumeid with the corresponding key.
