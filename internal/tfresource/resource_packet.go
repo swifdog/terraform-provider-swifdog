@@ -25,7 +25,7 @@ func ResourcePacket() *schema.Resource {
 				Type:     schema.TypeString,
 				Required: true,
 			},
-			"registryCredentialId": {
+			"registrycredentialid": {
 				Type:     schema.TypeString,
 				Optional: true,
 				Default:  nil,
@@ -88,7 +88,7 @@ func ResourcePacket() *schema.Resource {
 }
 
 func parseRegistryCredentialId(data *schema.ResourceData) *string {
-	value, ok := data.GetOk("registryCredentialId")
+	value, ok := data.GetOk("registrycredentialid")
 
 	if !ok {
 		return nil
@@ -178,7 +178,7 @@ func resourcePacketRead(data *schema.ResourceData, i interface{}) error {
 
 	_ = data.Set("name", packet.Name)
 	_ = data.Set("image", packet.Image)
-	_ = data.Set("registryCredentialId", packet.RegistryCredentialId)
+	_ = data.Set("registrycredentialid", packet.RegistryCredentialId)
 	_ = data.Set("env", packet.EnvironmentVariables)
 	_ = data.Set("volume", packet.VolumeMounts)
 	_ = data.Set("internalport", packet.InternalPorts)

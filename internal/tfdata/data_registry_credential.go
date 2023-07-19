@@ -14,7 +14,7 @@ func DataRegistryCredential() *schema.Resource {
 				Type:     schema.TypeString,
 				Required: true,
 			},
-			"registryUrl": {
+			"registryurl": {
 				Type:     schema.TypeString,
 				Required: true,
 			},
@@ -35,10 +35,10 @@ func dataRegistryCredentialRead(data *schema.ResourceData, i interface{}) error 
 	}
 
 	for _, c := range credentials {
-		if c.RegistryURL == data.Get("registryUrl").(string) {
+		if c.RegistryURL == data.Get("registryurl").(string) {
 			if data.Get("username") == nil || c.Username == data.Get("username").(string) {
 				data.SetId(c.ID)
-				_ = data.Set("registryUrl", c.RegistryURL)
+				_ = data.Set("registryurl", c.RegistryURL)
 				_ = data.Set("username", c.Username)
 			}
 		}
