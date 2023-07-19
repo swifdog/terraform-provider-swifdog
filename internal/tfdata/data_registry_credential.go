@@ -20,7 +20,7 @@ func DataRegistryCredential() *schema.Resource {
 			},
 			"username": {
 				Type:     schema.TypeString,
-				Required: false,
+				Optional: true,
 			},
 		},
 	}
