@@ -2,6 +2,8 @@ package provider
 
 import (
 	"errors"
+	"os"
+
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 	"github.com/swifdog/go-swifdog/swifdog"
 	"github.com/swifdog/terraform-provider-swifdog/internal/tfdata"
@@ -36,6 +38,7 @@ func New() *schema.Provider {
 			"swifdog_persistent_volume": tfresource.ResourcePersistentVolume(),
 			"swifdog_packet":            tfresource.ResourcePacket(),
 			"swifdog_ingress_rule":      tfresource.ResourceIngressRule(),
+			"swifdog_floatingip":        tfresource.ResourceFloatingIP(),
 		},
 		DataSourcesMap: map[string]*schema.Resource{
 			"swifdog_project":             tfdata.DataProject(),
@@ -47,19 +50,31 @@ func New() *schema.Provider {
 	}
 }
 
+func returnClient(client swifdog.Client, err error) (interface{}, error) {
+	apiEndpoint := os.Getenv("SWIFDOG_API_ENDPOINT")
+
+	if apiEndpoint != "" {
+		client.WithEndpoint(apiEndpoint)
+	}
+
+	return client, err
+}
+
 func configure(d *schema.ResourceData) (interface{}, error) {
 	apiToken := d.Get("api_token")
 
 	if apiToken != "" {
-		return swifdog.NewBearerTokenClient(apiToken.(string))
+		client, err := swifdog.NewBearerTokenClient(apiToken.(string))
+		return returnClient(*client, err)
 	}
 
 	email := d.Get("email")
 	password := d.Get("password")
 
 	if email != "" || password != "" {
-		return swifdog.NewBasicClient(email.(string), password.(string))
+		client, err := swifdog.NewBasicClient(email.(string), password.(string))
+		return returnClient(*client, err)
 	}
 
-	return nil, errors.New("Credentials not found.")
+	return nil, errors.New("Please provide credentials like basic or token authentication.")
 }

@@ -2,6 +2,7 @@ package tfdata
 
 import (
 	"errors"
+
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 	"github.com/swifdog/go-swifdog/swifdog"
 )
