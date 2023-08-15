@@ -329,12 +329,8 @@ github.com/stretchr/testify v1.5.1/go.mod h1:5W2xD1RspED5o8YsWQXVCued0rvSQ+mT+I5
 github.com/stretchr/testify v1.6.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
 github.com/stretchr/testify v1.7.0 h1:nwc3DEeHmmLAfoZucVR881uASk0Mfjw8xYJ99tb5CcY=
 github.com/stretchr/testify v1.7.0/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
-github.com/swifdog/go-swifdog v0.0.4 h1:7DTiOc+bLBHwM3GD4l9ZJo3pxXOEvlVeCIaIKGa50ss=
-github.com/swifdog/go-swifdog v0.0.4/go.mod h1:PBr0RgNwpuOuVx4s7cOgbpNUeTSh6Iys1x3p9nIWy50=
-github.com/swifdog/go-swifdog v0.0.5 h1:txbtYoJbv5UoxU7oaSdmTqWgckCQ0Zr56ijfGXUbHHk=
-github.com/swifdog/go-swifdog v0.0.5/go.mod h1:PBr0RgNwpuOuVx4s7cOgbpNUeTSh6Iys1x3p9nIWy50=
-github.com/swifdog/go-swifdog v0.0.6 h1:tJpmoWi19deMGSKybHdQHyO6mgzXHI2tu7tFDL1MTzo=
-github.com/swifdog/go-swifdog v0.0.6/go.mod h1:PBr0RgNwpuOuVx4s7cOgbpNUeTSh6Iys1x3p9nIWy50=
+github.com/swifdog/go-swifdog v0.0.6-1 h1:hOTY69xCMILnqpmQ7Y2eE6eSALaiHKXPd3jmdmnRpBc=
+github.com/swifdog/go-swifdog v0.0.6-1/go.mod h1:PBr0RgNwpuOuVx4s7cOgbpNUeTSh6Iys1x3p9nIWy50=
 github.com/ulikunitz/xz v0.5.8 h1:ERv8V6GKqVi23rgu5cj9pVfVzJbOqAY2Ntl88O6c2nQ=
 github.com/ulikunitz/xz v0.5.8/go.mod h1:nbz6k7qbPmH4IRqmfOplQw/tblSgqTqBwxkY0oWt/14=
 github.com/vmihailenco/msgpack v3.3.3+incompatible/go.mod h1:fy3FlTQTDXWkZ7Bh6AcGMlsjHatGryHQYUTf1ShIgkk=

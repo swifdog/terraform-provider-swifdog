@@ -50,7 +50,7 @@ func New() *schema.Provider {
 	}
 }
 
-func returnClient(client swifdog.Client, err error) (interface{}, error) {
+func returnClient(client *swifdog.Client, err error) (interface{}, error) {
 	apiEndpoint := os.Getenv("SWIFDOG_API_ENDPOINT")
 
 	if apiEndpoint != "" {
@@ -65,7 +65,7 @@ func configure(d *schema.ResourceData) (interface{}, error) {
 
 	if apiToken != "" {
 		client, err := swifdog.NewBearerTokenClient(apiToken.(string))
-		return returnClient(*client, err)
+		return returnClient(client, err)
 	}
 
 	email := d.Get("email")
@@ -73,7 +73,7 @@ func configure(d *schema.ResourceData) (interface{}, error) {
 
 	if email != "" || password != "" {
 		client, err := swifdog.NewBasicClient(email.(string), password.(string))
-		return returnClient(*client, err)
+		return returnClient(client, err)
 	}
 
 	return nil, errors.New("Please provide credentials like basic or token authentication.")

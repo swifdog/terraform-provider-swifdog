@@ -32,7 +32,6 @@ func ResourceFloatingIP() *schema.Resource {
 						"protocol": { // the packet id of the given container application
 							Type:     schema.TypeString,
 							Required: true,
-							Default:  "TCP",
 						},
 						"containerport": { // the port on which the service is listening internally
 							Type:     schema.TypeInt,
